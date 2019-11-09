@@ -51,8 +51,4 @@ remote:
 remote: Verifying deploy... done.
 To https://git.heroku.com/project-medical.git
    f57d077..fcf55d9  master -> master
-$ heroku run bash
-Running bash on ⬢ project-medical... up, run.4130 (Free)
-~ $ python manage.py collectstatic
-
 ```

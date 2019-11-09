@@ -1,0 +1,454 @@
+openapi: "3.0.0"
+info:
+  title: Project Medical API
+  version: 0.0.2
+paths:
+    /api/disease:
+        get:
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchDiseases
+            summary: Search diseases
+            responses:
+                '200':
+                    description: List of matching diseases
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DiseaseResults"
+
+    /api/medicine:
+        get:
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchMedicines
+            summary: Search medicines
+            responses:
+                '200':
+                    description: List of matching medicine
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/MedicineResults"
+
+    /api/symptom:
+        get:
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchSymptoms
+            summary: Search symptoms
+            responses:
+                '200':
+                    description: List of matching symptoms
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SymptomResults"
+
+    /api/pharmacy:
+        get:
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchPharmacies
+            summary: Search pharmacies
+            responses:
+                '200':
+                    description: List of matching pharmacies
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PharmacyResults"
+
+    /api/disease/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getDisease
+            summary: Get disease object
+            responses:
+                '200':
+                    description: Disease with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Disease"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/medicine/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getMedicine
+            summary: Get medicine object
+            responses:
+                '200':
+                    description: Medicine with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Medicine"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/symptom/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getSymptom
+            summary: Get symptom object
+            responses:
+                '200':
+                    description: Symptom with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Symptom"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/pharmacy/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getPharmacy
+            summary: Get pharmacy object
+            responses:
+                '200':
+                    description: Pharmacy with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Pharmacy"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/treatment:
+        get:
+            tags:
+                - Find Results
+            parameters: 
+                - $ref: "#/components/parameters/FindParameters"
+            operationId: getTreatment
+            summary: Find medicines for a given disease
+            responses:
+                '200':
+                    description: Medicines for the given disease
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/MedicineResults"
+                '500':
+                    $ref: "#/components/responses/InvalidId"
+
+    /api/suggest:
+        get:
+            tags:
+                - Find Results
+            parameters: 
+                - $ref: "#/components/parameters/FindParameters"
+            operationId: getSuggestions
+            summary: Find symptoms for a given disease
+            responses:
+                '200':
+                    description: Symptoms for the given disease
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SymptomResults"
+                '500':
+                    $ref: "#/components/responses/InvalidId"
+    /api/sell:
+        get:
+            tags:
+                - Find Results
+            parameters: 
+                - $ref: "#/components/parameters/FindParameters"
+            operationId: getSellingPharmacies
+            summary: Find pharmacies that sells the given medicine
+            responses:
+                '200':
+                    description: Pharmacies that sells the given medicine
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PharmacyResults"
+                '500':
+                    $ref: "#/components/responses/InvalidId"
+
+
+tags:
+  - name: Search Objects
+    description: Search an object with a given query. 
+        If query is not given, a list of all corresponding objects will be retured.
+  - name: Get Object
+    description: Get the object with the given id.
+  - name: Find Results
+    description: Get results using a relation between objects.
+        If the query is not given, this will return an empty list.
+        If query id is a valid id but does not match with any relevent object,
+        this will return an empty list.
+
+components:
+    parameters:
+        SearchParameters:
+            in: query
+            name: search
+            schema:
+                type: string
+            required: false
+            description: string to search
+        FetchParameters:
+            in: path
+            name: id
+            schema:
+                type: string
+                format: uuid
+            required: true
+            description: id of the object to fetch
+        FindParameters:
+            in: query
+            name: id
+            schema:
+                type: string
+                format: uuid
+            required: true
+            description: id of the object to find related objects of. 
+    
+    responses:
+        IdNotFound:
+            description: Object with given id not found
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+        InvalidId:
+            description: Object id invalid (not a valid v4 uuid)
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+
+    schemas:
+        Error:
+            type: object
+            required:
+                - detail
+            properties:
+                detail:
+                    type: string
+
+        Disease:
+            type: object
+            required:
+                - id
+                - name
+                - description
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                description:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        DiseaseResult:
+            type: object
+            required:
+                - id
+                - snippet
+                - name
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                snippet:
+                    type: string
+                name:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        DiseaseResults:
+            type: array
+            items:
+                $ref: "#/components/schemas/DiseaseResult"
+
+        Medicine:
+            type: object
+            required:
+                - id
+                - name
+                - description
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                description:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        MedicineResult:
+            type: object
+            required:
+                - id
+                - snippet
+                - name
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                snippet:
+                    type: string
+                name:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        MedicineResults:
+            type: array
+            items:
+                $ref: "#/components/schemas/MedicineResult"
+
+        Symptom:
+            type: object
+            required:
+                - id
+                - name
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                timestamp:
+                    type: string
+                    format: date-time
+        SymptomResult:
+            type: object
+            required:
+                - id
+                - name
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+        SymptomResults:
+            type: array
+            items:
+                $ref: "#/components/schemas/SymptomResult"
+
+        Pharmacy:
+            type: object
+            required:
+                - id
+                - name
+                - description
+                - langitude
+                - longitude
+                - address
+                - phone_number
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                description:
+                    type: string
+                langitude:
+                    type: number
+                    format: float
+                longitude:
+                    type: number
+                    format: float
+                address:
+                    type: string
+                phone_number:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        PharmacyResult:
+            type: object
+            required:
+                - id
+                - snippet
+                - name
+                - address
+                - phone_number
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                snippet:
+                    type: string
+                name:
+                    type: string
+                address:
+                    type: string
+                phone_number:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        PharmacyResults:
+            type: array
+            items:
+                $ref: "#/components/schemas/PharmacyResult"
+        
