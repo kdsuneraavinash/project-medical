@@ -18,8 +18,8 @@ class Disease {
     return Disease(
       id: map["id"],
       name: map["name"],
-      snippet: map["snippet"] ?? "",
-      description: map["description"] ?? "",
+      snippet: map["snippet"] ?? null,
+      description: map["description"] ?? null,
       imageUrl: map["image_url"],
       timestamp: DateTime.parse(map["timestamp"]),
     );

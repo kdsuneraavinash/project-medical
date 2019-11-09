@@ -3,6 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project_medical_app/logic/api_interactor.dart';
 import 'package:project_medical_app/logic/models/disease.dart';
+import 'package:project_medical_app/logic/stack_manager.dart';
+import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
 import 'package:project_medical_app/utils/helpers.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +28,11 @@ class _DiseasesListViewState extends State<DiseasesListView> {
       Provider.of<ApiInteractor>(context)
           .searchDiseases(widget.search)
           .then((result) {
-        setState(() {
-          _result = result;
-        });
+        if (mounted) {
+          setState(() {
+            _result = result;
+          });
+        }
       });
     });
   }
@@ -48,7 +52,12 @@ class _DiseasesListViewState extends State<DiseasesListView> {
                   physics: BouncingScrollPhysics(),
                   itemCount: _result.length,
                   itemBuilder: (_, index) => InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Provider.of<StackManager>(context)
+                          .storeObject(_result[index]);
+                      AppRouter.navigate(
+                          context, '/disease/${_result[index].id}');
+                    },
                     child: _buildDiseaseTile(_result[index]),
                   ),
                 ),
@@ -107,9 +116,12 @@ class _DiseasesListViewState extends State<DiseasesListView> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: SizedBox(
-              child: CachedImage(
-                imageUrl: disease.imageUrl,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: Key(disease.id),
+                child: CachedImage(
+                  imageUrl: disease.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.width * 0.2,

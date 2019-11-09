@@ -19,4 +19,12 @@ class ApiInteractor {
     }
     throw Exception("Error: ${response.statusCode}");
   }
+
+  Future<Disease> getDisease(String id) async {
+    Response response = await _dio.get("$_baseUrl/api/disease/$id");
+    if (response.statusCode == 200) {
+      return Disease.fromMap(Map<String, dynamic>.from(response.data));
+    }
+    throw Exception("Error: ${response.statusCode}");
+  }
 }

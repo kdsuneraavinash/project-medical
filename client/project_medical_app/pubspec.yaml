@@ -18,6 +18,7 @@ dependencies:
   flutter_spinkit: ^4.0.0
   dio: ^3.0.4
   cached_network_image: ^1.1.1
+  flutter_markdown: ^0.3.0
 
 dev_dependencies:
   flutter_test:
