@@ -3,6 +3,8 @@ from search.models import *
 from rest_framework import serializers
 
 
+# Base Objects
+
 class PharmacySerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
@@ -59,7 +61,7 @@ class PharmacyResultSerializer(serializers.ModelSerializer):
         return obj.snippet()
 
     class Meta:
-        exclude = ('description',)
+        exclude = ('description', 'langitude', 'longitude', )
         model = Pharmacy
 
 
