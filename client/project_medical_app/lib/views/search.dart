@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_medical_app/routes/router.dart';
+import 'package:project_medical_app/utils/cached_image.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -15,14 +17,18 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Center(
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-          Image.network(
-            "https://images.vexels.com/media/users/3/132066/isolated/preview/71646d7673e8847ab07b3b7e78928777-search-circle-icon-by-vexels.png",
-            height: MediaQuery.of(context).size.height * 0.3,
+          SizedBox(height: screenSize.height * 0.1),
+          CachedImage(
+            imageUrl:
+                "https://images.vexels.com/media/users/3/132066/isolated/preview/71646d7673e8847ab07b3b7e78928777-search-circle-icon-by-vexels.png",
+            height: screenSize.height * 0.3,
+            fit: BoxFit.contain,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -31,7 +37,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   .copyWith(primaryColor: Theme.of(context).accentColor),
               child: TextField(
                 controller: _controller,
-                decoration: InputDecoration(border: OutlineInputBorder()),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Search",
+                ),
               ),
             ),
           ),
@@ -43,7 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: RaisedButton(
                   child: Text("Search"),
                   onPressed: () {
-                    print(_controller.text);
+                    AppRouter.navigate(context, '/search/${_controller.text}');
                   },
                   color: Theme.of(context).accentColor,
                   textColor: Theme.of(context).primaryColor,
