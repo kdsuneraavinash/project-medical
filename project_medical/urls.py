@@ -12,5 +12,4 @@ urlpatterns = [
 
 urlpatterns += [
     path('api/', include('search.urls')),
-    path('api.yaml', TemplateView.as_view(template_name='api.yaml')),
 ]
