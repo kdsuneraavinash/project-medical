@@ -1,1 +1,0 @@
-# Project Medical Client App
