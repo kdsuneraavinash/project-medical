@@ -141,9 +141,11 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10,
 
     # Remove this to enable admin style json api
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     'rest_framework.renderers.JSONRenderer',
-    # ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'project_medical.utils.PrettyJsonRenderer',
+    ),
+
+    'COMPACT_JSON': True,
 
     # Comment this out when using session authentication(by web api)
     'DEFAULT_AUTHENTICATION_CLASSES': [

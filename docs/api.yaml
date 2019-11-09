@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   title: Project Medical API
-  version: 0.0.1+2
+  version: 0.0.2
 paths:
     /api/disease:
         get:
@@ -202,7 +202,7 @@ tags:
   - name: Find Results
     description: Get results using a relation between objects.
         If the query is not given, this will return an empty list.
-        If query id is a valid id but does not match with any releven object,
+        If query id is a valid id but does not match with any relevent object,
         this will return an empty list.
 
 components:
