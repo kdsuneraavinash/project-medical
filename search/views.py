@@ -20,11 +20,6 @@ class DiseaseList(generics.ListAPIView):
     serializer_class = DiseaseSerializer
 
 
-class SoldAtList(generics.ListAPIView):
-    queryset = SoldAt.objects.all()
-    serializer_class = SoldAtSerializer
-
-
-class TreatmentList(generics.ListAPIView):
-    queryset = Treatment.objects.all()
-    serializer_class = TreatmentSerializer
+class SymptomList(generics.ListAPIView):
+    queryset = Symptom.objects.all()
+    serializer_class = SymptomSerializer

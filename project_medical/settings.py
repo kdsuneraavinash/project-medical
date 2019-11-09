@@ -134,8 +134,8 @@ STATIC_URL = '/static/'
 # REST Framework
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10,
 
     # Comment this out when using session authentication(by web api)
     'DEFAULT_AUTHENTICATION_CLASSES': [

@@ -21,13 +21,7 @@ class DiseaseSerializer(serializers.ModelSerializer):
         model = Disease
 
 
-class SoldAtSerializer(serializers.ModelSerializer):
+class SymptomSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
-        model = SoldAt
-
-
-class TreatmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = Treatment
+        model = Symptom
