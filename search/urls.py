@@ -5,7 +5,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    path('pharmacy/', views.PharmacyList.as_view()),
-    path('medicine/', views.MedicineList.as_view()),
-    path('pharmacy-medicine/', views.PharmacyMedicineList.as_view()),
+    path('all/pharmacy/', views.PharmacyList.as_view()),
+    path('all/medicine/', views.MedicineList.as_view()),
+    path('all/treatment/', views.TreatmentList.as_view()),
 ]

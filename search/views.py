@@ -15,16 +15,16 @@ class MedicineList(generics.ListAPIView):
     serializer_class = MedicineSerializer
 
 
-class PharmacyMedicineList(generics.ListAPIView):
-    queryset = PharmacyMedicine.objects.all()
-    serializer_class = PharmacyMedicineSerializer
-
-
 class DiseaseList(generics.ListAPIView):
     queryset = Disease.objects.all()
     serializer_class = DiseaseSerializer
 
 
-class MedicineDiseaseList(generics.ListAPIView):
-    queryset = MedicineDisease.objects.all()
-    serializer_class = MedicineDiseaseSerializer
+class SoldAtList(generics.ListAPIView):
+    queryset = SoldAt.objects.all()
+    serializer_class = SoldAtSerializer
+
+
+class TreatmentList(generics.ListAPIView):
+    queryset = Treatment.objects.all()
+    serializer_class = TreatmentSerializer

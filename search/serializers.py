@@ -15,19 +15,19 @@ class MedicineSerializer(serializers.ModelSerializer):
         model = Medicine
 
 
-class PharmacyMedicineSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = PharmacyMedicine
-
-
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Disease
 
 
-class MedicineDiseaseSerializer(serializers.ModelSerializer):
+class SoldAtSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
-        model = MedicineDisease
+        model = SoldAt
+
+
+class TreatmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Treatment

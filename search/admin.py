@@ -18,11 +18,11 @@ class DiseaseAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'display_image')
 
 
-@admin.register(PharmacyMedicine)
-class PharmacyMedicineAdmin(admin.ModelAdmin):
+@admin.register(SoldAt)
+class SoldAtAdmin(admin.ModelAdmin):
     list_display = ('pharmacy', 'medicine')
 
 
-@admin.register(MedicineDisease)
-class MedicineDiseaseAdmin(admin.ModelAdmin):
+@admin.register(Treatment)
+class TreatmentAdmin(admin.ModelAdmin):
     list_display = ('medicine', 'disease')
