@@ -52,3 +52,11 @@ remote: Verifying deploy... done.
 To https://git.heroku.com/project-medical.git
    f57d077..fcf55d9  master -> master
 ```
+
+## Important Links
+
+[https://project-medical.herokuapp.com/](https://project-medical.herokuapp.com/)
+
+[Admin Panel](https://project-medical.herokuapp.com/admin)
+
+[Github Pages](https://github.com/kdsuneraavinash/project-medical)
