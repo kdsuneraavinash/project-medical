@@ -2,6 +2,8 @@ openapi: "3.0.0"
 info:
   title: Project Medical API
   version: 0.0.2
+servers:
+    - url: https://project-medical.herokuapp.com
 paths:
     /api/disease:
         get:
@@ -181,10 +183,10 @@ paths:
             parameters: 
                 - $ref: "#/components/parameters/FindParameters"
             operationId: getSellingPharmacies
-            summary: Find pharmacies that sells the given medicine
+            summary: Find pharmacies that sell the given medicine
             responses:
                 '200':
-                    description: Pharmacies that sells the given medicine
+                    description: Pharmacies that sell the given medicine
                     content:
                         application/json:
                             schema:
@@ -201,8 +203,8 @@ tags:
     description: Get the object with the given id.
   - name: Find Results
     description: Get results using a relation between objects.
-        If the query is not given, this will return an empty list.
-        If query id is a valid id but does not match with any relevent object,
+        If the query is not given or if query id is a valid id 
+        but does not match with any relevent object,
         this will return an empty list.
 
 components:
