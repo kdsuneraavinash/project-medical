@@ -25,3 +25,45 @@ class SymptomSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Symptom
+
+
+# Search results
+
+
+class DiseaseResultSerializer(serializers.ModelSerializer):
+    snippet = serializers.SerializerMethodField('get_snippet')
+
+    def get_snippet(self, obj):
+        return obj.snippet()
+
+    class Meta:
+        exclude = ('description',)
+        model = Disease
+
+
+class MedicineResultSerializer(serializers.ModelSerializer):
+    snippet = serializers.SerializerMethodField('get_snippet')
+
+    def get_snippet(self, obj):
+        return obj.snippet()
+
+    class Meta:
+        exclude = ('description',)
+        model = Medicine
+
+
+class PharmacyResultSerializer(serializers.ModelSerializer):
+    snippet = serializers.SerializerMethodField('get_snippet')
+
+    def get_snippet(self, obj):
+        return obj.snippet()
+
+    class Meta:
+        exclude = ('description',)
+        model = Pharmacy
+
+
+class SymptomResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        exclude = ('timestamp',)
+        model = Symptom

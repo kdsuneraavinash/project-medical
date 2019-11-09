@@ -3,6 +3,37 @@ info:
   title: Project Medical API
   version: 0.0.1+2
 paths:
+    /search/disease:
+        get:
+            operationId: searchDiseases
+            summary: Search all diseases for a query
+            responses:
+                '200':
+                    description: List of matching diseases
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DiseaseResults"
+                            examples: 
+                                example:
+                                    value:  
+                                        [
+                                            {
+                                                "id": "96866cdb-0d31-42be-bd30-36d5db69caa8",
+                                                "snippet": "**Dengue** (pronounced DENgee) fever is a painful, debilitating mosquito-borne disease caused by any",
+                                                "name": "Dengue",
+                                                "image_url": "https://medlineplus.gov/images/Dengue.jpg",
+                                                "timestamp": "2019-11-09T05:49:11.850932Z"
+                                            },
+                                            {
+                                                "id": "ba2bb7f8-a97b-4846-8395-ea1bd5b92b6d",
+                                                "snippet": "Hepatitis C is a liver infection that can lead to serious liver damage. It’s caused by the hepatitis",
+                                                "name": "Hepatitis C and the Hep C Virus",
+                                                "image_url": "https://www.healtheuropa.eu/wp-content/uploads/2018/11/H7-R-Halford-4102--696x392.jpg",
+                                                "timestamp": "2019-11-09T06:19:24.694040Z"
+                                            }
+                                        ]
+
     /search/all/disease:
         get:
             operationId: listAllDiseases
@@ -15,7 +46,7 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Diseases"
                             examples: 
-                                example1:
+                                example:
                                     value:  
                                         [
                                             {
@@ -45,7 +76,7 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Medicines"
                             examples: 
-                                example1:
+                                example:
                                     value:  
                                         [
                                             {
@@ -75,7 +106,7 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Pharmacies"
                             examples: 
-                                example1:
+                                example:
                                     value:  
                                         [
                                             {
@@ -130,6 +161,33 @@ components:
             type: array
             items:
                 $ref: "#/components/schemas/Disease"
+
+        DiseaseResult:
+            type: object
+            required:
+                - id
+                - name
+                - snippet
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                snippet:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        DiseaseResults:
+            type: array
+            items:
+                $ref: "#/components/schemas/DiseaseResult"
 
         Medicine:
             type: object

@@ -21,6 +21,9 @@ class Pharmacy(models.Model):
     def display_image(self):
         return mark_safe(u'<img src="%s" height=50/>' % escape(self.image_url))
 
+    def snippet(self):
+        return self.description[:100]
+
     def __str__(self):
         return self.name
 
@@ -35,6 +38,9 @@ class Medicine(models.Model):
     def display_image(self):
         return mark_safe(u'<img src="%s" height=50/>' % escape(self.image_url))
 
+    def snippet(self):
+        return self.description[:100]
+
     def __str__(self):
         return self.name
 
@@ -48,6 +54,9 @@ class Disease(models.Model):
 
     def display_image(self):
         return mark_safe(u'<img src="%s" height=50/>' % escape(self.image_url))
+
+    def snippet(self):
+        return self.description[:100]
 
     def __str__(self):
         return self.name
