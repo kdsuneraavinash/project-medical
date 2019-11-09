@@ -1,0 +1,201 @@
+openapi: "3.0.0"
+info:
+  title: Project Medical API
+  version: 0.0.1+2
+paths:
+    /search/all/disease:
+        get:
+            operationId: listAllDiseases
+            summary: List all diseases
+            responses:
+                '200':
+                    description: List of all diseases
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Diseases"
+                            examples: 
+                                example1:
+                                    value:  
+                                        [
+                                            {
+                                                "id": "96866cdb-0d31-42be-bd30-36d5db69caa8",
+                                                "name": "Dengue",
+                                                "description": "**Dengue** (pronounced DENgee) fever is a painful....",
+                                                "image_url": "https://medlineplus.gov/images/Dengue.jpg",
+                                                "timestamp": "2019-11-09T05:49:11.850932Z"
+                                            },
+                                            {
+                                                "id": "ba2bb7f8-a97b-4846-8395-ea1bd5b92b6d",
+                                                "name": "Hepatitis C and the Hep C Virus",
+                                                "description": "Hepatitis C is a liver infection that can lead ...",
+                                                "image_url": "https://www.healtheuropa.eu/wp-content/uploads/2018/11/H7-R-Halford-4102--696x392.jpg",
+                                                "timestamp": "2019-11-09T06:19:24.694040Z"
+                                            },
+                                        ]
+    /search/all/medicine:
+        get:
+            operationId: listAllMedicines
+            summary: List all medicines
+            responses:
+                '200':
+                    description: List of all medicines
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Medicines"
+                            examples: 
+                                example1:
+                                    value:  
+                                        [
+                                            {
+                                                "id": "254eaf24-22a7-46de-9b7d-f843861f478f",
+                                                "name": "Simeprevir",
+                                                "description": "Simeprevir is an antiviral drug used in combination with other...",
+                                                "image_url": "https://5.imimg.com/data5/KR/HX/MY-2745020/simeprevir-capsule-500x500.jpg",
+                                                "timestamp": "2019-11-09T06:16:23.100423Z"
+                                            },
+                                            {
+                                                "id": "5ad766cf-1019-4ed1-920e-4ddb8b0d6445",
+                                                "name": "Sofosbuvir",
+                                                "description": "Sofosbuvir (tradename Sovaldi) is a direct acting antiviral medication...",
+                                                "image_url": "https://4.imimg.com/data4/HN/VC/MY-13568080/e-hep-sofosbuvir-400mg-500x500.jpg",
+                                                "timestamp": "2019-11-09T06:17:27.139636Z"
+                                            }
+                                        ]
+    /search/all/pharmacy:
+        get:
+            operationId: listAllPharmacies
+            summary: List all pharmacies
+            responses:
+                '200':
+                    description: List of all pharmacies
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Pharmacies"
+                            examples: 
+                                example1:
+                                    value:  
+                                        [
+                                            {
+                                                "id": "993b16ef-15a4-4758-90e0-134f2e06f435",
+                                                "name": "New Philip Pharmacy",
+                                                "description": "New Philip Hospital, situated in the heart of the Kalutara Town...",
+                                                "langitude": 6.585191,
+                                                "longitude": 79.963755,
+                                                "address": "Kalutara, Sri Lanka.",
+                                                "phone_number": "0342 222 888",
+                                                "image_url": "https://www.philiphospitals.com/images/pharmacyheader.jpg",
+                                                "timestamp": "2019-11-09T06:03:36.927812Z"
+                                            },
+                                            {
+                                                "id": "88809fa8-6f2f-4508-b0de-46a5ef6f2211",
+                                                "name": "MyMed.lk - No.01 Online Pharmacy Portal in Sri Lanka",
+                                                "description": "Mymed.lk is an online portal, owned and operated by Digital X...",
+                                                "langitude": 6.5945732,
+                                                "longitude": 79.9752205,
+                                                "address": "Hunupitiya Lake Rd, Colombo 00200",
+                                                "phone_number": "071 977 4774",
+                                                "image_url": "https://mymed.lk/img/medicinehome4-logo-1512379260.jpg",
+                                                "timestamp": "2019-11-09T06:08:20.967793Z"
+                                            }
+                                        ]
+
+components:
+    schemas:
+        Disease:
+            type: object
+            required:
+                - id
+                - name
+                - description
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                description:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        Diseases:
+            type: array
+            items:
+                $ref: "#/components/schemas/Disease"
+
+        Medicine:
+            type: object
+            required:
+                - id
+                - name
+                - description
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                description:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        Medicines:
+            type: array
+            items:
+                $ref: "#/components/schemas/Medicine"
+
+        Pharmacy:
+            type: object
+            required:
+                - id
+                - name
+                - description
+                - langitude
+                - longitude
+                - address
+                - phone_number
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                description:
+                    type: string
+                langitude:
+                    type: number
+                    format: float
+                longitude:
+                    type: number
+                    format: float
+                address:
+                    type: string
+                phone_number:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        Pharmacies:
+            type: array
+            items:
+                $ref: "#/components/schemas/Pharmacy"
+        
