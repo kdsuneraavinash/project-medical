@@ -23,3 +23,36 @@ We have this functionality in two different versions(developed using two differe
 
 - Username - admin
 - Password - adminpassword
+
+## Deploying
+
+```bash
+$ git push heroku master
+Counting objects: 9, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (9/9), 4.56 KiB | 2.28 MiB/s, done.
+Total 9 (delta 4), reused 0 (delta 0)
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Python app detected
+remote: -----> Installing requirements with pip
+remote:
+remote: -----> Discovering process types
+remote:        Procfile declares types -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 60.1M
+remote: -----> Launching...
+remote:        Released v7
+remote:        https://project-medical.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/project-medical.git
+   f57d077..fcf55d9  master -> master
+$ heroku run bash
+Running bash on ⬢ project-medical... up, run.4130 (Free)
+~ $ python manage.py collectstatic
+
+```
