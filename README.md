@@ -17,3 +17,9 @@ We have this functionality in two different versions(developed using two differe
 - Backend - Django
 - Frontend - Flutter
 - Database - Postgres
+- API Documentation (OpenAPI 3.0) - Redoc
+
+## Super user details
+
+- Username - admin
+- Password - adminpassword

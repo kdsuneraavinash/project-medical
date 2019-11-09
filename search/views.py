@@ -4,9 +4,11 @@ from search.serializers import *
 from search.models import *
 from rest_framework import generics, filters
 from rest_framework.response import Response
+from rest_framework.exceptions import APIException
+import uuid
+
 
 # Lists
-
 
 class DiseaseList(generics.ListAPIView):
     search_fields = ['name', 'description']
@@ -64,21 +66,36 @@ class TreatmentView(generics.ListAPIView):
     serializer_class = MedicineResultSerializer
 
     def get_queryset(self):
-        disease = self.request.query_params.get('disease', None)
-        return Medicine.objects.filter(treatment__disease=disease)
+        disease = self.request.query_params.get('id', None)
+        try:
+            disease = uuid.UUID(disease, version=4)
+        except:
+            raise APIException("Invalid uuid")
+        queryset = Medicine.objects.filter(treatment__disease=disease)
+        return queryset
 
 
 class SuggestView(generics.ListAPIView):
     serializer_class = SymptomResultSerializer
 
     def get_queryset(self):
-        disease = self.request.query_params.get('disease', None)
-        return Symptom.objects.filter(suggest__disease=disease)
+        disease = self.request.query_params.get('id', None)
+        try:
+            disease = uuid.UUID(disease, version=4)
+        except:
+            raise APIException("Invalid uuid")
+        queryset = Symptom.objects.filter(suggest__disease=disease)
+        return queryset
 
 
 class SellView(generics.ListAPIView):
     serializer_class = PharmacyResultSerializer
 
     def get_queryset(self):
-        medicine = self.request.query_params.get('medicine', None)
-        return Pharmacy.objects.filter(sell__medicine=medicine)
+        medicine = self.request.query_params.get('id', None)
+        try:
+            medicine = uuid.UUID(medicine, version=4)
+        except:
+            raise APIException("Invalid uuid")
+        queryset = Pharmacy.objects.filter(sell__medicine=medicine)
+        return queryset

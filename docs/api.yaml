@@ -3,10 +3,14 @@ info:
   title: Project Medical API
   version: 0.0.1+2
 paths:
-    /search/disease:
+    /api/disease:
         get:
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
             operationId: searchDiseases
-            summary: Search all diseases for a query
+            summary: Search diseases
             responses:
                 '200':
                     description: List of matching diseases
@@ -14,127 +18,242 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/DiseaseResults"
-                            examples: 
-                                example:
-                                    value:  
-                                        [
-                                            {
-                                                "id": "96866cdb-0d31-42be-bd30-36d5db69caa8",
-                                                "snippet": "**Dengue** (pronounced DENgee) fever is a painful, debilitating mosquito-borne disease caused by any",
-                                                "name": "Dengue",
-                                                "image_url": "https://medlineplus.gov/images/Dengue.jpg",
-                                                "timestamp": "2019-11-09T05:49:11.850932Z"
-                                            },
-                                            {
-                                                "id": "ba2bb7f8-a97b-4846-8395-ea1bd5b92b6d",
-                                                "snippet": "Hepatitis C is a liver infection that can lead to serious liver damage. It’s caused by the hepatitis",
-                                                "name": "Hepatitis C and the Hep C Virus",
-                                                "image_url": "https://www.healtheuropa.eu/wp-content/uploads/2018/11/H7-R-Halford-4102--696x392.jpg",
-                                                "timestamp": "2019-11-09T06:19:24.694040Z"
-                                            }
-                                        ]
 
-    /search/all/disease:
+    /api/medicine:
         get:
-            operationId: listAllDiseases
-            summary: List all diseases
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchMedicines
+            summary: Search medicines
             responses:
                 '200':
-                    description: List of all diseases
+                    description: List of matching medicine
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Diseases"
-                            examples: 
-                                example:
-                                    value:  
-                                        [
-                                            {
-                                                "id": "96866cdb-0d31-42be-bd30-36d5db69caa8",
-                                                "name": "Dengue",
-                                                "description": "**Dengue** (pronounced DENgee) fever is a painful....",
-                                                "image_url": "https://medlineplus.gov/images/Dengue.jpg",
-                                                "timestamp": "2019-11-09T05:49:11.850932Z"
-                                            },
-                                            {
-                                                "id": "ba2bb7f8-a97b-4846-8395-ea1bd5b92b6d",
-                                                "name": "Hepatitis C and the Hep C Virus",
-                                                "description": "Hepatitis C is a liver infection that can lead ...",
-                                                "image_url": "https://www.healtheuropa.eu/wp-content/uploads/2018/11/H7-R-Halford-4102--696x392.jpg",
-                                                "timestamp": "2019-11-09T06:19:24.694040Z"
-                                            },
-                                        ]
-    /search/all/medicine:
+                                $ref: "#/components/schemas/MedicineResults"
+
+    /api/symptom:
         get:
-            operationId: listAllMedicines
-            summary: List all medicines
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchSymptoms
+            summary: Search symptoms
             responses:
                 '200':
-                    description: List of all medicines
+                    description: List of matching symptoms
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Medicines"
-                            examples: 
-                                example:
-                                    value:  
-                                        [
-                                            {
-                                                "id": "254eaf24-22a7-46de-9b7d-f843861f478f",
-                                                "name": "Simeprevir",
-                                                "description": "Simeprevir is an antiviral drug used in combination with other...",
-                                                "image_url": "https://5.imimg.com/data5/KR/HX/MY-2745020/simeprevir-capsule-500x500.jpg",
-                                                "timestamp": "2019-11-09T06:16:23.100423Z"
-                                            },
-                                            {
-                                                "id": "5ad766cf-1019-4ed1-920e-4ddb8b0d6445",
-                                                "name": "Sofosbuvir",
-                                                "description": "Sofosbuvir (tradename Sovaldi) is a direct acting antiviral medication...",
-                                                "image_url": "https://4.imimg.com/data4/HN/VC/MY-13568080/e-hep-sofosbuvir-400mg-500x500.jpg",
-                                                "timestamp": "2019-11-09T06:17:27.139636Z"
-                                            }
-                                        ]
-    /search/all/pharmacy:
+                                $ref: "#/components/schemas/SymptomResults"
+
+    /api/pharmacy:
         get:
-            operationId: listAllPharmacies
-            summary: List all pharmacies
+            tags:
+                - Search Objects
+            parameters: 
+                - $ref: "#/components/parameters/SearchParameters"
+            operationId: searchPharmacies
+            summary: Search pharmacies
             responses:
                 '200':
-                    description: List of all pharmacies
+                    description: List of matching pharmacies
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Pharmacies"
-                            examples: 
-                                example:
-                                    value:  
-                                        [
-                                            {
-                                                "id": "993b16ef-15a4-4758-90e0-134f2e06f435",
-                                                "name": "New Philip Pharmacy",
-                                                "description": "New Philip Hospital, situated in the heart of the Kalutara Town...",
-                                                "langitude": 6.585191,
-                                                "longitude": 79.963755,
-                                                "address": "Kalutara, Sri Lanka.",
-                                                "phone_number": "0342 222 888",
-                                                "image_url": "https://www.philiphospitals.com/images/pharmacyheader.jpg",
-                                                "timestamp": "2019-11-09T06:03:36.927812Z"
-                                            },
-                                            {
-                                                "id": "88809fa8-6f2f-4508-b0de-46a5ef6f2211",
-                                                "name": "MyMed.lk - No.01 Online Pharmacy Portal in Sri Lanka",
-                                                "description": "Mymed.lk is an online portal, owned and operated by Digital X...",
-                                                "langitude": 6.5945732,
-                                                "longitude": 79.9752205,
-                                                "address": "Hunupitiya Lake Rd, Colombo 00200",
-                                                "phone_number": "071 977 4774",
-                                                "image_url": "https://mymed.lk/img/medicinehome4-logo-1512379260.jpg",
-                                                "timestamp": "2019-11-09T06:08:20.967793Z"
-                                            }
-                                        ]
+                                $ref: "#/components/schemas/PharmacyResults"
+
+    /api/disease/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getDisease
+            summary: Get disease object
+            responses:
+                '200':
+                    description: Disease with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Disease"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/medicine/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getMedicine
+            summary: Get medicine object
+            responses:
+                '200':
+                    description: Medicine with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Medicine"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/symptom/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getSymptom
+            summary: Get symptom object
+            responses:
+                '200':
+                    description: Symptom with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Symptom"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/pharmacy/{id}:
+        get:
+            tags:
+                - Get Object
+            parameters: 
+                - $ref: "#/components/parameters/FetchParameters"
+            operationId: getPharmacy
+            summary: Get pharmacy object
+            responses:
+                '200':
+                    description: Pharmacy with the given id
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Pharmacy"
+                '404':
+                    $ref: "#/components/responses/IdNotFound"
+
+    /api/treatment:
+        get:
+            tags:
+                - Find Results
+            parameters: 
+                - $ref: "#/components/parameters/FindParameters"
+            operationId: getTreatment
+            summary: Find medicines for a given disease
+            responses:
+                '200':
+                    description: Medicines for the given disease
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/MedicineResults"
+                '500':
+                    $ref: "#/components/responses/InvalidId"
+
+    /api/suggest:
+        get:
+            tags:
+                - Find Results
+            parameters: 
+                - $ref: "#/components/parameters/FindParameters"
+            operationId: getSuggestions
+            summary: Find symptoms for a given disease
+            responses:
+                '200':
+                    description: Symptoms for the given disease
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SymptomResults"
+                '500':
+                    $ref: "#/components/responses/InvalidId"
+    /api/sell:
+        get:
+            tags:
+                - Find Results
+            parameters: 
+                - $ref: "#/components/parameters/FindParameters"
+            operationId: getSellingPharmacies
+            summary: Find pharmacies that sells the given medicine
+            responses:
+                '200':
+                    description: Pharmacies that sells the given medicine
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PharmacyResults"
+                '500':
+                    $ref: "#/components/responses/InvalidId"
+
+
+tags:
+  - name: Search Objects
+    description: Search an object with a given query. 
+        If query is not given, a list of all corresponding objects will be retured.
+  - name: Get Object
+    description: Get the object with the given id.
+  - name: Find Results
+    description: Get results using a relation between objects.
+        If the query is not given, this will return an empty list.
+        If query id is a valid id but does not match with any releven object,
+        this will return an empty list.
 
 components:
+    parameters:
+        SearchParameters:
+            in: query
+            name: search
+            schema:
+                type: string
+            required: false
+            description: string to search
+        FetchParameters:
+            in: path
+            name: id
+            schema:
+                type: string
+                format: uuid
+            required: true
+            description: id of the object to fetch
+        FindParameters:
+            in: query
+            name: id
+            schema:
+                type: string
+                format: uuid
+            required: true
+            description: id of the object to find related objects of. 
+    
+    responses:
+        IdNotFound:
+            description: Object with given id not found
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+        InvalidId:
+            description: Object id invalid (not a valid v4 uuid)
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Error"
+
     schemas:
+        Error:
+            type: object
+            required:
+                - detail
+            properties:
+                detail:
+                    type: string
+
         Disease:
             type: object
             required:
@@ -157,26 +276,21 @@ components:
                 timestamp:
                     type: string
                     format: date-time
-        Diseases:
-            type: array
-            items:
-                $ref: "#/components/schemas/Disease"
-
         DiseaseResult:
             type: object
             required:
                 - id
-                - name
                 - snippet
+                - name
                 - image_url
                 - timestamp
             properties:
                 id:
                     type: string
                     format: uuid
-                name:
-                    type: string
                 snippet:
+                    type: string
+                name:
                     type: string
                 image_url:
                     type: string
@@ -211,10 +325,63 @@ components:
                 timestamp:
                     type: string
                     format: date-time
-        Medicines:
+        MedicineResult:
+            type: object
+            required:
+                - id
+                - snippet
+                - name
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                snippet:
+                    type: string
+                name:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        MedicineResults:
             type: array
             items:
-                $ref: "#/components/schemas/Medicine"
+                $ref: "#/components/schemas/MedicineResult"
+
+        Symptom:
+            type: object
+            required:
+                - id
+                - name
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+                timestamp:
+                    type: string
+                    format: date-time
+        SymptomResult:
+            type: object
+            required:
+                - id
+                - name
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                name:
+                    type: string
+        SymptomResults:
+            type: array
+            items:
+                $ref: "#/components/schemas/SymptomResult"
 
         Pharmacy:
             type: object
@@ -252,8 +419,36 @@ components:
                 timestamp:
                     type: string
                     format: date-time
-        Pharmacies:
+        PharmacyResult:
+            type: object
+            required:
+                - id
+                - snippet
+                - name
+                - address
+                - phone_number
+                - image_url
+                - timestamp
+            properties:
+                id:
+                    type: string
+                    format: uuid
+                snippet:
+                    type: string
+                name:
+                    type: string
+                address:
+                    type: string
+                phone_number:
+                    type: string
+                image_url:
+                    type: string
+                    format: uri
+                timestamp:
+                    type: string
+                    format: date-time
+        PharmacyResults:
             type: array
             items:
-                $ref: "#/components/schemas/Pharmacy"
+                $ref: "#/components/schemas/PharmacyResult"
         

@@ -3,7 +3,6 @@ from rest_framework import routers
 from search import views
 from django.contrib import admin
 
-
 urlpatterns = [
     path('disease/', views.DiseaseList.as_view()),
     path('medicine/', views.MedicineList.as_view()),
