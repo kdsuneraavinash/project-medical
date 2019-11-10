@@ -34,7 +34,7 @@ flutter_icons:
   image_path: "assets/logo.png"
   
 flutter_native_splash:
-  image: "assets/logo.png"
+  image: "assets/search.png"
   color: "ffffff"
 
 flutter:
@@ -42,3 +42,4 @@ flutter:
 
   assets:
    - assets/logo.png
+   - assets/search-page.png

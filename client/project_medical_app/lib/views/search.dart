@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_medical_app/routes/router.dart';
-import 'package:project_medical_app/utils/cached_image.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -24,9 +23,8 @@ class _SearchScreenState extends State<SearchScreen> {
         physics: BouncingScrollPhysics(),
         children: [
           SizedBox(height: screenSize.height * 0.1),
-          CachedImage(
-            imageUrl:
-                "https://images.vexels.com/media/users/3/132066/isolated/preview/71646d7673e8847ab07b3b7e78928777-search-circle-icon-by-vexels.png",
+          Image.asset(
+            "assets/search-page.png",
             height: screenSize.height * 0.3,
             fit: BoxFit.contain,
           ),
