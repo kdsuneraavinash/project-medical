@@ -27,6 +27,11 @@ class HomePage extends StatelessWidget {
               () => _handleThemeChanged(context)),
           _buildDrawerListTile("API Documentation", MdiIcons.api,
               () => _launchURL("https://project-medical.herokuapp.com")),
+          _buildDrawerListTile(
+              "Source Code",
+              MdiIcons.githubCircle,
+              () => _launchURL(
+                  "https://github.com/kdsuneraavinash/project-medical")),
           _buildDrawerListTile("About Project Medical", MdiIcons.developerBoard,
               () => _handleAboutPressed(context)),
         ],
