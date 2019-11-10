@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:project_medical_app/utils/alert.dart';
 
 typedef Widget AsyncSnapshotWidgetBuilder<T>(BuildContext context, T data);
 
@@ -62,7 +64,7 @@ class HandledBuilderEmptyWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 24),
         child: Icon(
-          MdiIcons.paperclip,
+          MdiIcons.viewList,
           size: 56,
         ),
       ),
@@ -83,11 +85,13 @@ class HandledBuilderErrorWidget extends StatelessWidget {
         child: IconButton(
           iconSize: 56,
           onPressed: () {
-            print(error.toString());
+            if (error is DioError) {
+              Alert.showAlertBox(context, (error as DioError).message);
+            } else {
+              Alert.showAlertBox(context, error.toString());
+            }
           },
-          icon: Icon(
-            MdiIcons.bugOutline,
-          ),
+          icon: Icon(MdiIcons.networkOff),
         ),
       ),
     );
