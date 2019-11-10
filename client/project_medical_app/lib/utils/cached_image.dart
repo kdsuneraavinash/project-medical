@@ -52,7 +52,7 @@ class _CachedImageState extends State<CachedImage> {
               },
             ),
             Text(
-              error.toString().replaceAll(":", "\n"),
+              "Error",
               textAlign: TextAlign.center,
             )
           ],

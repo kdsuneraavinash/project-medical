@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class MarddownDescription extends StatelessWidget {
+class DescriptionView extends StatelessWidget {
   final String description;
 
-  const MarddownDescription({Key key, this.description}) : super(key: key);
+  const DescriptionView(this.description, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return (description == null)

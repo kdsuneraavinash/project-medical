@@ -1,6 +1,7 @@
 import 'package:project_medical_app/views/home.dart';
-import 'package:project_medical_app/views/results/disease_view/disease_view.dart';
-import 'package:project_medical_app/views/results/diseases.dart';
+import 'package:project_medical_app/views/search/disease_view/disease_view.dart';
+import 'package:project_medical_app/views/search/diseases.dart';
+import 'package:project_medical_app/views/search/medicine_view/medicine_view.dart';
 
 import 'router.dart';
 
@@ -13,4 +14,7 @@ void defineAllRoutes() {
   router.defineRoute(
       path: "/disease/:id",
       handler: (_, params) => DiseaseView(id: params["id"][0]));
+  router.defineRoute(
+      path: "/medicine/:id",
+      handler: (_, params) => MedicineView(id: params["id"][0]));
 }
