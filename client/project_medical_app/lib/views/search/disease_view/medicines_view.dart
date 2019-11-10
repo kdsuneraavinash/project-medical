@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_medical_app/logic/models/medicine.dart';
-import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
 import 'package:project_medical_app/views/search/medicine_view/medicine_view.dart';
-import 'package:provider/provider.dart';
 
 class MedicinesView extends StatelessWidget {
   final List<Medicine> medicines;

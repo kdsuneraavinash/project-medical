@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_medical_app/logic/models/pharmacy.dart';
-import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
-import 'package:provider/provider.dart';
+import 'package:project_medical_app/views/search/pharmacy_view/pharmacy_view.dart';
 
 class PharmaciesView extends StatelessWidget {
   final List<Pharmacy> pharmacies;
@@ -39,8 +38,8 @@ class PharmacyTile extends StatelessWidget {
       child: Material(
         child: InkWell(
           onTap: () {
-            Provider.of<StackManager>(context).storeObject(pharmacy);
-            AppRouter.navigate(context, '/pharmacy/${pharmacy.id}');
+            AppRouter.directNavigate(
+                context, (_) => PharmacyView(pharmacy: pharmacy));
           },
           child: GridTile(
             child: CachedImage(
