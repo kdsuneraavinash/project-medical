@@ -26,7 +26,7 @@ class HandledFutureBuilder<T> extends StatelessWidget {
         if (snapshot.hasData) {
           if (snapshot.data is List) {
             if ((snapshot.data as List).isEmpty) {
-              return emptyWidget ?? HandledBuilderProgressWidget();
+              return emptyWidget ?? HandledBuilderEmptyWidget();
             }
           }
           return builder(context, snapshot.data);

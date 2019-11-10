@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project_medical_app/logic/models/symptom.dart';
-import 'package:project_medical_app/views/search/widgets/tabbed_list.dart';
 
-class SymptomsView extends TabbedList<Symptom> {
-  SymptomsView(List<Symptom> items) : super(items);
+class SymptomsView extends StatelessWidget {
+  final List<Symptom> symptoms;
+
+  SymptomsView(this.symptoms);
 
   @override
-  Widget buildItems(BuildContext context) {
+  Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: items.length,
+      itemCount: symptoms.length,
       itemBuilder: (_, index) {
-        Symptom symptom = items[index];
+        Symptom symptom = symptoms[index];
         return ListTile(title: Text(symptom.name));
       },
     );

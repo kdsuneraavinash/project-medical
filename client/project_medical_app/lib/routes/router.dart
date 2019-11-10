@@ -74,7 +74,7 @@ class AppRouter {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => callback(_),
+        builder: (_) => ThemeConsumer(child: callback(_)),
       ),
     );
   }

@@ -3,25 +3,38 @@ import 'package:project_medical_app/logic/models/medicine.dart';
 import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
-import 'package:project_medical_app/views/search/widgets/tabbed_list.dart';
 import 'package:provider/provider.dart';
 
-class MedicinesView extends TabbedList<Medicine> {
-  MedicinesView(List<Medicine> items) : super(items);
+class MedicinesView extends StatelessWidget {
+  final List<Medicine> medicines;
+
+  MedicinesView(this.medicines);
 
   @override
-  Widget buildItems(BuildContext context) {
+  Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-      itemCount: items.length,
+      itemCount: medicines.length,
       itemBuilder: (_, index) {
-        return _buildGridTile(context, items[index]);
+        return new MedicineTile(context: context, medicine: medicines[index]);
       },
     );
   }
+}
 
-  Widget _buildGridTile(BuildContext context, Medicine medicine) {
+class MedicineTile extends StatelessWidget {
+  const MedicineTile({
+    Key key,
+    @required this.context,
+    @required this.medicine,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final Medicine medicine;
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       child: Material(
         child: InkWell(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_medical_app/logic/api_interactor.dart';
 import 'package:project_medical_app/logic/models/disease.dart';
-import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
-import 'package:project_medical_app/utils/helpers.dart';
+import 'package:project_medical_app/views/search/disease_view/disease_view.dart';
 import 'package:project_medical_app/views/search/widgets/future_builder.dart';
 import 'package:provider/provider.dart';
 
@@ -31,8 +30,10 @@ class DiseasesListView extends StatelessWidget {
             itemCount: result.length,
             itemBuilder: (_, index) => InkWell(
               onTap: () {
-                Provider.of<StackManager>(context).storeObject(result[index]);
-                AppRouter.navigate(context, '/disease/${result[index].id}');
+                AppRouter.directNavigate(
+                  context,
+                  (_) => DiseaseView(disease: result[index]),
+                );
               },
               child: DiseaseTile(disease: result[index]),
             ),
