@@ -12,9 +12,6 @@ void defineAllRoutes() {
       path: "/search/:search",
       handler: (_, params) => DiseasesListView(search: params["search"][0]));
   router.defineRoute(
-      path: "/medicine/:id",
-      handler: (_, params) => MedicineView(id: params["id"][0]));
-  router.defineRoute(
       path: "/pharmacy/:id",
       handler: (_, params) => PharmacyView(id: params["id"][0]));
 }

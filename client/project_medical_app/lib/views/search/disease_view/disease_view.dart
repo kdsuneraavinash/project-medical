@@ -11,16 +11,10 @@ import '../widgets/description_view.dart';
 import 'medicines_view.dart';
 import 'symptoms_view.dart';
 
-class DiseaseView extends StatefulWidget {
+class DiseaseView extends StatelessWidget {
   final Disease disease;
-
   const DiseaseView({Key key, @required this.disease}) : super(key: key);
 
-  @override
-  _DiseaseViewState createState() => _DiseaseViewState();
-}
-
-class _DiseaseViewState extends State<DiseaseView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,23 +22,23 @@ class _DiseaseViewState extends State<DiseaseView> {
         length: 3,
         initialIndex: 0,
         child: NestedScrollView(
-          headerSliverBuilder: (_, __) => [_headerSliverWidget()],
+          headerSliverBuilder: (_, __) => [_headerSliverWidget(context)],
           body: TabBarView(
             children: [
               HandledFutureBuilder<Disease>(
-                future: Provider.of<ApiInteractor>(context)
-                    .getDisease(widget.disease.id),
+                future:
+                    Provider.of<ApiInteractor>(context).getDisease(disease.id),
                 builder: (_, disease) => DescriptionView(disease.description),
               ),
               HandledFutureBuilder<List<Symptom>>(
                 future: Provider.of<ApiInteractor>(context)
-                    .getSuggestions(widget.disease.id),
-                builder: (_, _symptoms) => SymptomsView(_symptoms),
+                    .getSuggestions(disease.id),
+                builder: (_, symptoms) => SymptomsView(symptoms),
               ),
               HandledFutureBuilder<List<Medicine>>(
                 future: Provider.of<ApiInteractor>(context)
-                    .getTreatments(widget.disease.id),
-                builder: (_, _medicines) => MedicinesView(_medicines),
+                    .getTreatments(disease.id),
+                builder: (_, medicines) => MedicinesView(medicines),
               ),
             ],
           ),
@@ -53,9 +47,9 @@ class _DiseaseViewState extends State<DiseaseView> {
     );
   }
 
-  Widget _headerSliverWidget() {
+  Widget _headerSliverWidget(BuildContext context) {
     return SliverAppBar(
-      title: Text(widget.disease.name),
+      title: Text(disease.name),
       bottom: TabBar(
         tabs: [
           Tab(child: Text("Description")),
@@ -70,9 +64,9 @@ class _DiseaseViewState extends State<DiseaseView> {
           fit: StackFit.expand,
           children: <Widget>[
             Hero(
-              tag: Key(widget.disease.id),
+              tag: Key(disease.id),
               child: CachedImage(
-                imageUrl: widget.disease.imageUrl,
+                imageUrl: disease.imageUrl,
                 height: MediaQuery.of(context).size.height * 0.2,
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:project_medical_app/logic/models/medicine.dart';
 import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
+import 'package:project_medical_app/views/search/medicine_view/medicine_view.dart';
 import 'package:provider/provider.dart';
 
 class MedicinesView extends StatelessWidget {
@@ -39,12 +40,15 @@ class MedicineTile extends StatelessWidget {
       child: Material(
         child: InkWell(
           onTap: () {
-            Provider.of<StackManager>(context).storeObject(medicine);
-            AppRouter.navigate(context, '/medicine/${medicine.id}');
+            AppRouter.directNavigate(
+                context, (_) => MedicineView(medicine: medicine));
           },
           child: GridTile(
-            child: CachedImage(
-              imageUrl: medicine.imageUrl,
+            child: Hero(
+              tag: Key(medicine.id),
+              child: CachedImage(
+                imageUrl: medicine.imageUrl,
+              ),
             ),
             footer: Container(
               height: 36.0,

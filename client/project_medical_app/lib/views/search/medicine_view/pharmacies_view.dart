@@ -3,25 +3,38 @@ import 'package:project_medical_app/logic/models/pharmacy.dart';
 import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
-import 'package:project_medical_app/views/search/widgets/tabbed_list.dart';
 import 'package:provider/provider.dart';
 
-class PharmaciesView extends TabbedList<Pharmacy> {
-  PharmaciesView(List<Pharmacy> items) : super(items);
+class PharmaciesView extends StatelessWidget {
+  final List<Pharmacy> pharmacies;
+
+  const PharmaciesView({Key key, this.pharmacies}) : super(key: key);
 
   @override
-  Widget buildItems(BuildContext context) {
+  Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-      itemCount: items.length,
+      itemCount: pharmacies.length,
       itemBuilder: (_, index) {
-        return _buildGridTile(context, items[index]);
+        return PharmacyTile(context: context, pharmacy: pharmacies[index]);
       },
     );
   }
+}
 
-  Widget _buildGridTile(BuildContext context, Pharmacy pharmacy) {
+class PharmacyTile extends StatelessWidget {
+  const PharmacyTile({
+    Key key,
+    @required this.context,
+    @required this.pharmacy,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final Pharmacy pharmacy;
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       child: Material(
         child: InkWell(
