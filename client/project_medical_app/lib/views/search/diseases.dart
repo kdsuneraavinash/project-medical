@@ -1,79 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project_medical_app/logic/api_interactor.dart';
 import 'package:project_medical_app/logic/models/disease.dart';
 import 'package:project_medical_app/logic/stack_manager.dart';
 import 'package:project_medical_app/routes/router.dart';
 import 'package:project_medical_app/utils/cached_image.dart';
 import 'package:project_medical_app/utils/helpers.dart';
+import 'package:project_medical_app/views/search/widgets/future_builder.dart';
 import 'package:provider/provider.dart';
 
-class DiseasesListView extends StatefulWidget {
+import 'disease_tile.dart';
+
+class DiseasesListView extends StatelessWidget {
   final String search;
 
   const DiseasesListView({Key key, this.search}) : super(key: key);
 
   @override
-  _DiseasesListViewState createState() => _DiseasesListViewState();
-}
-
-class _DiseasesListViewState extends State<DiseasesListView> {
-  List<Disease> _result;
-
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((d) {
-      Provider.of<ApiInteractor>(context)
-          .searchDiseases(widget.search)
-          .then((result) {
-        if (mounted) {
-          setState(() {
-            _result = result;
-          });
-        }
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search results for '${widget.search}'"),
+        title: Text("Search results: $search"),
         centerTitle: true,
       ),
-      body: (_result == null)
-          ? _loadingWidget()
-          : (_result.length == 0)
-              ? _noResultsWidget()
-              : ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: _result.length,
-                  itemBuilder: (_, index) => InkWell(
-                    onTap: () {
-                      Provider.of<StackManager>(context)
-                          .storeObject(_result[index]);
-                      AppRouter.navigate(
-                          context, '/disease/${_result[index].id}');
-                    },
-                    child: _buildDiseaseTile(_result[index]),
-                  ),
-                ),
-    );
-  }
-
-  Widget _loadingWidget() {
-    return Center(
-      child: SpinKitWave(
-        color: Theme.of(context).accentColor,
-        size: 24,
+      body: HandledFutureBuilder<List<Disease>>(
+        future: Provider.of<ApiInteractor>(context).searchDiseases(search),
+        emptyWidget: _noResultsWidget(context),
+        builder: (context, result) {
+          return ListView.builder(
+            physics: BouncingScrollPhysics(),
+            itemCount: result.length,
+            itemBuilder: (_, index) => InkWell(
+              onTap: () {
+                Provider.of<StackManager>(context).storeObject(result[index]);
+                AppRouter.navigate(context, '/disease/${result[index].id}');
+              },
+              child: DiseaseTile(disease: result[index]),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _noResultsWidget() {
+  Widget _noResultsWidget(BuildContext context) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -104,65 +73,6 @@ class _DiseasesListViewState extends State<DiseasesListView> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildDiseaseTile(Disease disease) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: SizedBox(
-              child: Hero(
-                tag: Key(disease.id),
-                child: CachedImage(
-                  imageUrl: disease.imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              width: MediaQuery.of(context).size.width * 0.2,
-              height: MediaQuery.of(context).size.width * 0.2,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  disease.name,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  "${disease.snippet}...",
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      Helpers.timeagoText(disease.timestamp, "en"),
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w200,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        )
-      ],
     );
   }
 }
