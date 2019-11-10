@@ -4,13 +4,16 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DescriptionView extends StatelessWidget {
   final String description;
+  final bool isScrollable;
 
-  const DescriptionView(this.description, {Key key}) : super(key: key);
+  const DescriptionView(this.description, {Key key, this.isScrollable = true})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return (description == null)
         ? _loadingMarkdownWidget(context)
         : Markdown(
+            physics: isScrollable ? null : NeverScrollableScrollPhysics(),
             data: description,
             shrinkWrap: true,
           );

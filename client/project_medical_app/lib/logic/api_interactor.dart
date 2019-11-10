@@ -39,6 +39,14 @@ class ApiInteractor {
     throw Exception("Error: ${response.statusCode}");
   }
 
+  Future<Pharmacy> getPharmacy(String id) async {
+    Response response = await _dio.get("$_baseUrl/api/pharmacy/$id");
+    if (response.statusCode == 200) {
+      return Pharmacy.fromMap(Map<String, dynamic>.from(response.data));
+    }
+    throw Exception("Error: ${response.statusCode}");
+  }
+
   Future<List<Symptom>> getSuggestions(String id) async {
     Response response = await _dio.get(
       "$_baseUrl/api/suggest",

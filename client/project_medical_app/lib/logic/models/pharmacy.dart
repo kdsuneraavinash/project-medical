@@ -3,7 +3,7 @@ class Pharmacy {
   final String name;
   final String snippet;
   final String description;
-  final double lagitude;
+  final double latitude;
   final double longitude;
   final String address;
   final String phoneNumber;
@@ -15,7 +15,7 @@ class Pharmacy {
       this.name,
       this.snippet,
       this.description,
-      this.lagitude,
+      this.latitude,
       this.longitude,
       this.address,
       this.phoneNumber,
@@ -28,8 +28,8 @@ class Pharmacy {
       name: map["name"],
       snippet: map["snippet"],
       description: map["description"],
-      lagitude: map["description"],
-      longitude: map["description"],
+      latitude: map["langitude"],
+      longitude: map["longitude"],
       imageUrl: map["image_url"],
       address: map["address"],
       phoneNumber: map["phone_number"],
