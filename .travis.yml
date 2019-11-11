@@ -19,6 +19,8 @@ addons:
       - libstdc++6
       - fonts-droid-fallback
 before_script:
+  - psql -c "CREATE USER project_medical_user WITH PASSWORD 'password';" -U postgres
+  - psql -c 'ALTER USER project_medical_user CREATEDB;'  -U postgres
   - cd ./client/project_medical_app
   - git clone https://github.com/flutter/flutter.git -b beta
   - ./flutter/bin/flutter doctor
