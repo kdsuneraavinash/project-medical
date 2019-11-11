@@ -1,5 +1,7 @@
 # Project Medical
 
+[![Build Status](https://travis-ci.com/kdsuneraavinash/project-medical.svg?branch=master)](https://travis-ci.com/kdsuneraavinash/project-medical)
+
 ## Description
 
 This application is a simple mobile application which enables users to get information about symptoms of a disease, medicine recommended for curing the disease and list of medical shops where user can get the medicines.
