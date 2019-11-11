@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project_medical_app/logic/api_interactor.dart';
+import 'package:project_medical_app/logic/config.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<ApiInteractor>.value(
-      value: ApiInteractor("https://project-medical.herokuapp.com"),
+      value: ApiInteractor(Dio()..options.baseUrl = Config.baseUrl),
       child: ThemeProvider(
         saveThemesOnChange: true,
         loadThemeOnInit: true,

@@ -6,13 +6,12 @@ import 'package:project_medical_app/logic/models/symptom.dart';
 
 class ApiInteractor {
   final Dio _dio;
-  final String _baseUrl;
 
-  ApiInteractor(this._baseUrl) : _dio = Dio();
+  ApiInteractor(this._dio);
 
   Future<List<Disease>> searchDiseases(String query) async {
     Response response = await _dio.get(
-      "$_baseUrl/api/disease",
+      "/api/disease",
       queryParameters: {"search": query},
     );
     if (response.statusCode == 200) {
@@ -24,7 +23,7 @@ class ApiInteractor {
   }
 
   Future<Disease> getDisease(String id) async {
-    Response response = await _dio.get("$_baseUrl/api/disease/$id");
+    Response response = await _dio.get("/api/disease/$id");
     if (response.statusCode == 200) {
       return Disease.fromMap(Map<String, dynamic>.from(response.data));
     }
@@ -32,7 +31,7 @@ class ApiInteractor {
   }
 
   Future<Medicine> getMedicine(String id) async {
-    Response response = await _dio.get("$_baseUrl/api/medicine/$id");
+    Response response = await _dio.get("/api/medicine/$id");
     if (response.statusCode == 200) {
       return Medicine.fromMap(Map<String, dynamic>.from(response.data));
     }
@@ -40,7 +39,7 @@ class ApiInteractor {
   }
 
   Future<Pharmacy> getPharmacy(String id) async {
-    Response response = await _dio.get("$_baseUrl/api/pharmacy/$id");
+    Response response = await _dio.get("/api/pharmacy/$id");
     if (response.statusCode == 200) {
       return Pharmacy.fromMap(Map<String, dynamic>.from(response.data));
     }
@@ -49,7 +48,7 @@ class ApiInteractor {
 
   Future<List<Symptom>> getSuggestions(String id) async {
     Response response = await _dio.get(
-      "$_baseUrl/api/suggest",
+      "/api/suggest",
       queryParameters: {"id": id},
     );
     if (response.statusCode == 200) {
@@ -63,7 +62,7 @@ class ApiInteractor {
 
   Future<List<Medicine>> getTreatments(String id) async {
     Response response = await _dio.get(
-      "$_baseUrl/api/treatment",
+      "/api/treatment",
       queryParameters: {"id": id},
     );
     if (response.statusCode == 200) {
@@ -77,7 +76,7 @@ class ApiInteractor {
 
   Future<List<Pharmacy>> getSellingPharmacies(String id) async {
     Response response = await _dio.get(
-      "$_baseUrl/api/sell",
+      "/api/sell",
       queryParameters: {"id": id},
     );
     if (response.statusCode == 200) {
