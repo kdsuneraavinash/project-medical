@@ -112,4 +112,4 @@ class Suggest(models.Model):
         unique_together = (("symptom", "disease"),)
 
     def __str__(self):
-        return f" {self.symptom.name} suggests {self.disease.name}"
+        return f"{self.symptom.name} suggests {self.disease.name}"

@@ -96,6 +96,9 @@ DATABASES = {
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',
+        'TEST': {
+            'NAME': 'test_project_medical',
+        }
     }
 }
 
