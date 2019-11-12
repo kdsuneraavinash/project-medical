@@ -1,5 +1,8 @@
 from django.test import TestCase
+import unittest
 from search.models import *
+from django.test import Client
+import json
 
 
 class ModelTest(TestCase):
@@ -113,3 +116,57 @@ class ModelTest(TestCase):
         pharmacy = self.create_pharmacy(description=desciption)
         self.assertTrue(isinstance(pharmacy, Pharmacy))
         self.assertEqual(pharmacy.snippet(), desciption[:100])
+
+
+class IntegrationTest(unittest.TestCase):
+    def create_disease(self, name):
+        return Disease.objects.create(name=name,
+                                      description="description"*20,
+                                      image_url="image_url")
+
+    def create_medicine(self, name):
+        return Medicine.objects.create(name=name,
+                                       description="description"*20,
+                                       image_url="image_url")
+
+    def create_sample_disease_data(self):
+        self.create_disease("Disease A")
+        self.create_disease("Disease B")
+        self.create_disease("Disease C")
+        self.create_disease("Disease D")
+        self.create_disease("Disease E")
+
+    def create_sample_medicine_data(self):
+        self.create_medicine("Medicine A")
+        self.create_medicine("Medicine B")
+        self.create_medicine("Medicine C")
+        self.create_medicine("Medicine D")
+        self.create_medicine("Medicine E")
+
+    def test_diseases(self):
+        self.create_sample_disease_data()
+        client = Client()
+        response = client.get('/api/disease/')
+        self.assertEqual(response.status_code, 200)
+        diseases = json.loads(response.content)
+        disease_names = list(map(lambda x: x["name"], diseases))
+        self.assertEqual(len(disease_names), 5)
+        self.assertIn("Disease A", disease_names)
+        self.assertIn("Disease B", disease_names)
+        self.assertIn("Disease C", disease_names)
+        self.assertIn("Disease D", disease_names)
+        self.assertIn("Disease E", disease_names)
+
+    def test_medicines(self):
+        self.create_sample_medicine_data()
+        client = Client()
+        response = client.get('/api/medicine/')
+        self.assertEqual(response.status_code, 200)
+        medicines = json.loads(response.content)
+        medicine_names = list(map(lambda x: x["name"], medicines))
+        self.assertEqual(len(medicine_names), 5)
+        self.assertIn("Medicine A", medicine_names)
+        self.assertIn("Medicine B", medicine_names)
+        self.assertIn("Medicine C", medicine_names)
+        self.assertIn("Medicine D", medicine_names)
+        self.assertIn("Medicine E", medicine_names)
