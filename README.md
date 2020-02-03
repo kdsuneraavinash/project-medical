@@ -64,3 +64,7 @@ To https://git.heroku.com/project-medical.git
 [Github Pages](https://github.com/kdsuneraavinash/project-medical)
 
 [Data taken from](https://www.nhs.uk)
+
+## Screenshot of the app
+
+![Screenshot](docs/Screenshot_2020-02-03-23-22-04.png)
